@@ -46,13 +46,11 @@ const storage = {
         return h.response({ success: true, message: 'not found' }).code(200)
       }
     } catch (error) {
-      console.log(3)
       return h.response({ success: true, message: error.message }).code(500)
     }
   },
   async update (request, h) {
     try {
-      console.log(request.params.id, request.payload)
       const result = await Storage.findOne({ client_id: request.params.id })
 
       if (result) {
