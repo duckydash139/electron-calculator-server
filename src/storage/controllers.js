@@ -1,10 +1,9 @@
 import Storage from '../models/storage'
 
 const storage = {
-  async create(request, h) {
+  async create (request, h) {
     try {
-      const { client_id, file } = request.payload
-      const newClient = new Storage({ client_id, file })
+      const newClient = new Storage({ client_id: request.payload.client_id, file: request.payload.file })
 
       await newClient.save()
 
@@ -22,36 +21,40 @@ const storage = {
       return h.response({ success: false, message: error.message }).code(500)
     }
   },
-  async remove(request, h) {
+  async remove (request, h) {
     try {
       const result = await Storage.findOne({ client_id: request.params.id })
+
       if (result) {
         await Storage.findOneAndRemove({ client_id: request.params.id })
 
         return h.response({ success: true, message: 'removed' }).code(200)
       }
 
-      return h.response({ success: true, message: 'not found' }).code(404)
+      return h.response({ success: true, message: 'not found' }).code(202)
     } catch (error) {
-        return h.response({ success: false, message: error.message }).code(500)
+      return h.response({ success: false, message: error.message }).code(500)
     }
   },
-  async find(request, h) {
+  async find (request, h) {
     try {
       const result = await Storage.findOne({ client_id: request.params.id })
 
       if (result) {
         return h.response(result.file).code(200)
+      } else {
+        return h.response({ success: true, message: 'not found' }).code(200)
       }
-
-      return h.response({ success: true, message: 'not found' }).code(404)
     } catch (error) {
-      return h.response({ success: false, message: error.message }).code(500)
+      console.log(3)
+      return h.response({ success: true, message: error.message }).code(500)
     }
   },
-  async update(request, h) {
+  async update (request, h) {
     try {
+      console.log(request.params.id, request.payload)
       const result = await Storage.findOne({ client_id: request.params.id })
+
       if (result) {
         await Storage.findOneAndUpdate(
           { client_id: request.params.id },
@@ -61,7 +64,7 @@ const storage = {
         return h.response({ success: true, message: 'updated' }).code(200)
       }
 
-      return h.response({ success: true, message: 'not found' }).code(404)
+      return h.response({ success: true, message: 'not found' }).code(202)
     } catch (error) {
       return h.response({ success: false, message: error.message }).code(500)
     }

@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export default {
   connect (DB_URI) {
-    mongoose.connect(DB_URI)
+    mongoose.connect( DB_URI, { useNewUrlParser: true })
 
     mongoose.connection.on('error', e => {
       console.error('Mongoose can not open connection')
@@ -18,7 +18,7 @@ export default {
       console.error('Connection DB lost')
 
       setTimeout(() => {
-        mongoose.connect(DB_URI)
+        mongoose.connect(DB_URI, { useNewUrlParser: true })
         console.error('DB reconnection')
       }, 15000)
     })

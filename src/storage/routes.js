@@ -29,7 +29,7 @@ export default [
               .valid(['add', 'substract', 'multiply', 'divide', 'power'])
               .required()
               .description('operator'),
-            result: Joi.string()
+            result: Joi.any()
               .required()
               .description(`most are number except 'Cannot divide by 0' case`)
           }).required()
@@ -64,7 +64,7 @@ export default [
           a: Joi.number(),
           b: Joi.number(),
           operator: Joi.string(),
-          result: Joi.string()
+          result: Joi.any()
         })
       }
     }
