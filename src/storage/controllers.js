@@ -42,7 +42,7 @@ const storage = {
 
       if (result) {
         return h.response(result.file).code(200)
-      } 
+      }
 
       return h.response({ success: true, message: 'not found' }).code(202)
     } catch (error) {

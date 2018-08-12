@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export default {
   connect (DB_URI) {
-    mongoose.connect( DB_URI, { useNewUrlParser: true })
+    mongoose.connect(DB_URI, { useNewUrlParser: true })
 
     mongoose.connection.on('error', e => {
       console.error('Mongoose can not open connection')
