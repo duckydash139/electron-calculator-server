@@ -22,10 +22,10 @@ $ yarn install
 Example: DATABASE_URI=mongodb://localhost:27017
 
 # run development mode
-$ yarn start
+$ yarn dev
 
 # build for production and launch server
-$ yarn build && yarn serve
+$ yarn build && yarn start
 ```
 
 
